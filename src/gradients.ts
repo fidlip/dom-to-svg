@@ -55,14 +55,17 @@ export function convertLinearGradient(
 		let stopColor = 'rgb(0,0,0)'
 		let stopOpacity = 1
 
+		// @ts-ignore
 		switch (colorStop.length.type) {
-	          case '%':
-                    offset = `${colorStop.length.value}%`;
-                    break;
-                  default:
-                    offset = `${(index / (colorStops.length - 1)) * 100}%`;
-                    break;
-                }
+			case '%':
+				// @ts-ignore
+				offset = `${colorStop.length.value}%`;
+				break;
+
+			  default:
+				offset = `${(index / (colorStops.length - 1)) * 100}%`;
+				break;
+		}
 
 		switch (colorStop.type) {
 			case 'rgb': {

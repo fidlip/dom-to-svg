@@ -18,6 +18,10 @@
 		"paths": {
 			"*": ["./src/types/*", "./*"],
 		},
+		"typeRoots": [
+			"node_modules/@pollyjs/adapter/types.d.ts",
+			"node_modules/@pollyjs/persister/types.d.ts"
+		],
 	},
 	"include": ["src/**/*"],
 }

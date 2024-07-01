@@ -32,9 +32,11 @@ export async function readFileOrUndefined(filePath: string): Promise<string | un
 	try {
 		return await readFile(filePath, 'utf-8')
 	} catch (error) {
+		// @ts-ignore
 		if (error.code === 'ENOENT') {
 			return undefined
 		}
+		// @ts-ignore
 		throw error
 	}
 }

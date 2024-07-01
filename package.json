@@ -32,7 +32,8 @@
 		"prettier": "prettier --check '**/*.{yml,ts,json}'",
 		"get-fixture": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ts-node src/test/get-fixture.ts",
 		"test": "mocha src/test/test.ts",
-		"semantic-release": "semantic-release"
+		"semantic-release": "semantic-release",
+		"prepare": "npm run build"
 	},
 	"mocha": {
 		"timeout": 150000,
@@ -63,9 +64,9 @@
 	"devDependencies": {
 		"@commitlint/cli": "^11.0.0",
 		"@commitlint/config-conventional": "^11.0.0",
-		"@pollyjs/adapter": "^5.0.0",
-		"@pollyjs/core": "^5.0.0",
-		"@pollyjs/persister-fs": "^5.0.0",
+		"@pollyjs/adapter": "^6.0.0",
+		"@pollyjs/core": "^6.0.0",
+		"@pollyjs/persister-fs": "^6.0.0",
 		"@sourcegraph/eslint-config": "^0.24.0",
 		"@sourcegraph/prettierrc": "^3.0.3",
 		"@types/chai": "^4.2.19",

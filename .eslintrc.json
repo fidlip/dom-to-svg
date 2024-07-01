@@ -8,6 +8,7 @@
 		"no-restricted-globals": ["error", "document", "window", "location"],
 		"etc/throw-error": "off",
 		"unicorn/import-index": "off",
-		"callback-return": "off"
+		"callback-return": "off",
+		"@typescript-eslint/ban-ts-comment": "off"
 	}
 }

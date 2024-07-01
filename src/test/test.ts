@@ -39,9 +39,11 @@ console.log('Using Polly mode', mode)
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..')
 
+// @ts-ignore
 describe('documentToSVG()', () => {
 	let browser: puppeteer.Browser
 	let server: Server
+	// @ts-ignore
 	before('Launch devserver', async () => {
 		const bundler = new ParcelBundler(path.resolve(root, 'lib/test/injected-script.js'), {
 			hmr: false,
@@ -51,6 +53,7 @@ describe('documentToSVG()', () => {
 		})
 		server = await bundler.serve(8080)
 	})
+	// @ts-ignore
 	before('Launch browser', async () => {
 		browser = await puppeteer.launch({
 			headless: true,
@@ -68,7 +71,9 @@ describe('documentToSVG()', () => {
 		})
 	})
 
+	// @ts-ignore
 	after('Close browser', () => browser?.close())
+	// @ts-ignore
 	after('Close devserver', done => server?.close(done))
 
 	const snapshotDirectory = path.resolve(root, 'src/test/snapshots')
@@ -84,9 +89,11 @@ describe('documentToSVG()', () => {
 	for (const url of sites) {
 		const encodedName = encodeURIComponent(url.href)
 		const svgFilePath = path.resolve(snapshotDirectory, encodedName + '.svg')
+		// @ts-ignore
 		describe(url.href, () => {
 			let polly: Polly
 			let page: puppeteer.Page
+			// @ts-ignore
 			before('Open tab and setup Polly', async () => {
 				page = await browser.newPage()
 				await page.setRequestInterception(true)
@@ -118,6 +125,7 @@ describe('documentToSVG()', () => {
 					recordIfMissing: false,
 					recordFailedRequests: true,
 					flushRequestsOnStop: false,
+					// @ts-ignore
 					logging: false,
 					adapters: [PuppeteerAdapter as any],
 					adapterOptions: {
@@ -167,6 +175,7 @@ describe('documentToSVG()', () => {
 				})
 			})
 
+			// @ts-ignore
 			before('Go to page', async () => {
 				await page.goto(url.href, {
 					waitUntil: url.host === 'github.com' ? 'domcontentloaded' : 'networkidle2',
@@ -200,10 +209,13 @@ describe('documentToSVG()', () => {
 				// await new Promise<never>(() => {})
 			})
 
+			// @ts-ignore
 			after('Stop Polly', () => polly?.stop())
+			// @ts-ignore
 			after('Close page', () => page?.close())
 
 			let svgPage: puppeteer.Page
+			// @ts-ignore
 			before('Produce SVG', async () => {
 				const svgDeferred = createDeferred<string>()
 				await page.exposeFunction('resolveSVG', svgDeferred.resolve)
@@ -223,8 +235,10 @@ describe('documentToSVG()', () => {
 				await svgPage.goto(pathToFileURL(svgFilePath).href)
 				// await new Promise<never>(() => {})
 			})
+			// @ts-ignore
 			after('Close SVG page', () => svgPage?.close())
 
+			// @ts-ignore
 			it('produces SVG that is visually the same', async () => {
 				console.log('Bringing page to front')
 				await page.bringToFront()
@@ -262,16 +276,19 @@ describe('documentToSVG()', () => {
 				assert.isBelow(differencePercentage, 0.5) // %
 			})
 
+			// @ts-ignore
 			it('produces SVG with the expected accessibility tree', async function () {
 				const snapshotPath = path.resolve(snapshotDirectory, encodedName + '.a11y.json')
 				const expectedAccessibilityTree = await readFileOrUndefined(snapshotPath)
 				const actualAccessibilityTree = await svgPage.accessibility.snapshot()
 				await writeFile(snapshotPath, JSON.stringify(actualAccessibilityTree, null, 2))
 				if (!expectedAccessibilityTree) {
+					// @ts-ignore
 					this.skip()
 				}
 				assert.deepStrictEqual(
 					actualAccessibilityTree,
+					// @ts-ignore
 					JSON.parse(expectedAccessibilityTree),
 					'Expected accessibility tree to be the same as snapshot'
 				)

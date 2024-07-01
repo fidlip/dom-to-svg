@@ -89,9 +89,10 @@ export class PuppeteerAdapter extends PollyAdapter {
 
 	constructor(polly: Polly) {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
 		super(polly)
+		// @ts-ignore
 		this.page = this.options.page
+		// @ts-ignore
 		this.requestResourceTypes = this.options.requestResourceTypes
 	}
 
@@ -223,6 +224,7 @@ export class PuppeteerAdapter extends PollyAdapter {
 	 * Adds an entry to pendingRequests, that will call the provided promise.resolve function
 	 * when a response for this request is received.
 	 */
+	// @ts-ignore
 	public onRequest({
 		requestArguments: { request },
 		promise,
